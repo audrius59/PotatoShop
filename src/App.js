@@ -13,6 +13,7 @@ export default function App() {
           <div className="buttonsPanel">
             <button onClick={ getIsAdmin }>Test `GET` /api/is-admin</button>
             <button onClick={ getAllProducts }>Test `GET` /api/products</button>
+            <button onClick={ (_evt) => { deleteProduct(1) } }>Test `DELETE` /api/products</button>
           </div>
           <div className="flexChild rowParent">
             <Editor value={value} />
@@ -40,6 +41,10 @@ export default function App() {
       .catch((error) => {
         console.log(error.response);
       });
+  }
+
+  function deleteProduct(id) {
+    ApiFactory.getInstance().delete(`/api/products/${id}`).then(() => { getAllProducts() })
   }
 
   function beautify(val) {
