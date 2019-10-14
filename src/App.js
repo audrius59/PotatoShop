@@ -5,8 +5,7 @@ import ApiFactory from './mock';
 import Editor from './Editor';
 
 export default function App() {
-  const [value, setValue ] = useState("");
-  console.log(value);
+  const [value, setValue ] = useState('');
   return (
     <div className="flexContainer">
       <div className="flexChild rowParent">
@@ -29,7 +28,6 @@ export default function App() {
         setValue(beautify(data));
       })
       .catch((error) => {
-        // TODO: Display nice error message.
         console.log(error.response);
       });
   }
