@@ -1,12 +1,14 @@
-## This is a final task for Adapt Academy final assessment.
+## This is a final task boilerplate for Adapt Academy final assessment.
 
 You can see example of application at [https://adaptdk.github.io/Adapt-Academy-Frontend-2019-solution](https://adaptdk.github.io/Adapt-Academy-Frontend-2019-solution)
 
-It contains such pages:
+Try to create a similiar application as in example provide above.
+
+It should contains such pages:
 - landing page;
 - product page;
 - purchase page;
-- administration page;
+- administration page, that will be visible for admin users;
 - product editing page;
 
 It use **axios-mock-adapter** for simulating and handling basic CRUD:
