@@ -1,4 +1,4 @@
-## This is solution for Adapt Academy final assessment.
+## This is a final task for Adapt Academy final assessment.
 
 You can see example of application at [https://adaptdk.github.io/Adapt-Academy-Frontend-2019-solution](https://adaptdk.github.io/Adapt-Academy-Frontend-2019-solution)
 
