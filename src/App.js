@@ -13,7 +13,21 @@ export default function App() {
           <div className="buttonsPanel">
             <button onClick={ getIsAdmin }>Test `GET` /api/is-admin</button>
             <button onClick={ getAllProducts }>Test `GET` /api/products</button>
-            <button onClick={ (_evt) => { deleteProduct(1) } }>Test `DELETE` /api/products</button>
+            <button onClick={ (_evt) => { deleteProduct(1) } }>
+              Test `DELETE` /api/products for product with id equal to 1
+            </button>
+            <button onClick={ 
+              (_evt) => { 
+                updateProduct(2, {
+                  "id": 2,
+                  "name": "Foo bar",
+                  "description": "Foo bar foo bar foo bar",
+                  "price": 3.75,
+                  "new": false
+                });
+              }}>
+                Test `PUT` /api/products for product with id equal to 2
+              </button>
           </div>
           <div className="flexChild rowParent">
             <Editor value={value} />
@@ -44,7 +58,15 @@ export default function App() {
   }
 
   function deleteProduct(id) {
-    ApiFactory.getInstance().delete(`/api/products/${id}`).then(() => { getAllProducts() })
+    ApiFactory.getInstance().delete(`/api/products/${id}`).then(
+      () => { getAllProducts() }
+    );
+  }
+
+  function updateProduct(id, data) {
+    ApiFactory.getInstance().put(`/api/products/${id}`, data).then(
+      () => { getAllProducts() }
+    );
   }
 
   function beautify(val) {

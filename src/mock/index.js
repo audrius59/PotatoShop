@@ -9,7 +9,7 @@ const MockAdapter = require('axios-mock-adapter');
 const ApiFactory = (function(){
   function ApiWithMocks() {
     const axiosInstance = axios.create();
-    const mock = new MockAdapter(axiosInstance, { delayResponse: 500 });
+    const mock = new MockAdapter(axiosInstance, { delayResponse: 100 });
 
     initIsAdmin(mock);
     initProducts(mock);

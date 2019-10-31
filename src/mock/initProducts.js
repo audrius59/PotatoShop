@@ -32,8 +32,14 @@ export default function initProducts(mock) {
   
   mock.onDelete(/\/api\/products\/\d+/).reply(function(config) {
     const id = last(config.url.split('/'));
+
+    console.log(id);
     const productId = findIndex(products, (product) => (product.id.toString() === id.toString()));
-    products.splice(productId, 1);
+    console.log(productId);
+    
+    if (productId >= 0) {
+      products.splice(productId, 1);
+    }
 
     console.log(`Got \`DELETE /api/products/${id}\` request with data:` , config.data);
     console.log('Will respond with data: ', products);
