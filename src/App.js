@@ -13,8 +13,11 @@ export default function App() {
           <div className="buttonsPanel">
             <button onClick={ getIsAdmin }>Test `GET` /api/is-admin</button>
             <button onClick={ getAllProducts }>Test `GET` /api/products</button>
+            <button onClick={ (_evt) => { getProduct(7) } }>
+              Test `GET` /api/products/7 for product with id equal to 7
+            </button>
             <button onClick={ (_evt) => { deleteProduct(1) } }>
-              Test `DELETE` /api/products for product with id equal to 1
+              Test `DELETE` /api/products/1 for product with id equal to 1
             </button>
             <button onClick={ 
               (_evt) => { 
@@ -26,7 +29,18 @@ export default function App() {
                   "new": false
                 });
               }}>
-                Test `PUT` /api/products for product with id equal to 2
+                Test `PUT` /api/products/2 for product with id equal to 2
+              </button>
+              <button onClick={ (_evt) => { 
+                buyItems([{
+                  "id": 2,
+                  "name": "Foo bar",
+                  "description": "Foo bar foo bar foo bar",
+                  "price": 3.75,
+                  "new": false
+                }])
+              } }>
+                Test `POST` /api/buy for given items
               </button>
           </div>
           <div className="flexChild rowParent">
@@ -44,6 +58,9 @@ export default function App() {
       })
       .catch((error) => {
         console.log(error.response);
+      }).catch((error) => {
+        // TODO: Display nice error message.
+        console.log(error.response);
       });
   }
 
@@ -54,19 +71,50 @@ export default function App() {
       })
       .catch((error) => {
         console.log(error.response);
+      }).catch((error) => {
+        // TODO: Display nice error message.
+        console.log(error.response);
+      });
+  }
+
+  function getProduct(id) {
+    ApiFactory.getInstance().get(`/api/products/${id}`)
+      .then(({ data }) => {
+        setValue(beautify({ products: data }));
+      })
+      .catch((error) => {
+        console.log(error.response);
+      }).catch((error) => {
+        // TODO: Display nice error message.
+        console.log(error.response);
       });
   }
 
   function deleteProduct(id) {
     ApiFactory.getInstance().delete(`/api/products/${id}`).then(
       () => { getAllProducts() }
-    );
+    ).catch((error) => {
+      // TODO: Display nice error message.
+      console.log(error.response);
+    });
   }
 
   function updateProduct(id, data) {
     ApiFactory.getInstance().put(`/api/products/${id}`, data).then(
       () => { getAllProducts() }
-    );
+    ).catch((error) => {
+      // TODO: Display nice error message.
+      console.log(error.response);
+    });
+  }
+
+  function buyItems(items) {
+    ApiFactory.getInstance().post('/api/buy', { itemsToBuy: items }).then(function() {
+      alert('Bought Items. This is fake API that do nothing.');
+    }).catch((error) => {
+      // TODO: Display nice error message.
+      console.log(error.response);
+    });
   }
 
   function beautify(val) {

@@ -5,7 +5,6 @@ export default function initProducts(mock) {
   mock.onGet(/\/api\/products\/\d+/).reply(function(config) {
     const id = last(config.url.split('/'));
     const product = find(products, (product) => (product.id.toString() === id.toString()));
-    
     console.log(`Got \`GET /api/products/${id}\` request with data:` , config.data);
     console.log('Will respond with data: ', product);
 
@@ -21,7 +20,7 @@ export default function initProducts(mock) {
 
   mock.onPut(/\/api\/products\/\d+/).reply(function(config) {
     const id = last(config.url.split('/'));
-    const productId = findIndex(products, (product) => (product.id.toString() === id.toString()));
+    const productId = getProductIndex(products, id);
     products[productId] = JSON.parse(config.data);
 
     console.log(`Got \`PUT /api/products/${id}\` request with data:` , config.data);
@@ -32,10 +31,7 @@ export default function initProducts(mock) {
   
   mock.onDelete(/\/api\/products\/\d+/).reply(function(config) {
     const id = last(config.url.split('/'));
-
-    console.log(id);
-    const productId = findIndex(products, (product) => (product.id.toString() === id.toString()));
-    console.log(productId);
+    const productId = getProductIndex(products, id);
     
     if (productId >= 0) {
       products.splice(productId, 1);
@@ -62,4 +58,8 @@ export default function initProducts(mock) {
 
     return [200, products];
   });
+}
+
+function getProductIndex(products, id) {
+  return findIndex(products, (product) => (product.id.toString() === id.toString()));
 }
