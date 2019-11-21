@@ -2,6 +2,8 @@
 
 You can see example of application at [https://adaptdk.github.io/Adapt-Academy-Frontend-2019-solution](https://adaptdk.github.io/Adapt-Academy-Frontend-2019-solution)
 
+You can see how to use mocked API at [https://adaptdk.github.io/Adapt-Academy-Frontend-2019-task](https://adaptdk.github.io/Adapt-Academy-Frontend-2019-task)
+
 Try to create a similiar application as in example provide above.
 
 It should contains such pages:
@@ -106,6 +108,7 @@ It use **axios-mock-adapter** for simulating and handling basic CRUD:
 
 - **POST /api/products** will create new product and will return all products. 
 - **DELETE /api/products/{id}** will delete product and will return all products.
+- **POST /api/buy/{id}** do nothing, but useful for implementing notification message when items was bought by user.
 
 Request calls to api should be done by using ApiFactory.getInstance() that includes all api CRUD mocks. It will let for axios-mock-adapter to inject mocks and simulate basic CRUD:
 
