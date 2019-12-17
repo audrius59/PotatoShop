@@ -1,123 +1,64 @@
-import React, { useState } from 'react';
-import { take } from 'lodash';
-
-import ApiFactory from './mock';
-import Editor from './Editor';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ApiFactory from "./mock";
+import Header from "./components/Header";
+import LandingPage from "./components/LandingPage";
+import ProductList from "./components/ProductList";
+import ProductCreate from "./components/ProductCreate";
+import ProductEdit from "./components/ProductEdit";
+import AdminPage from "./components/AdminPage";
+import Footer from "./components/Footer";
+import Cart from "./components/Cart";
+import Modal from "./components/Modal";
 
 export default function App() {
-  const [value, setValue ] = useState('');
+  const [value, setValue] = useState([]);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  const handleClose = () => {
+    setMessage("");
+  };
+
   return (
-    <div className="flexContainer">
-      <div className="flexChild rowParent">
-        <div className="flexChild columnParent" >
-          <div className="buttonsPanel">
-            <button onClick={ getIsAdmin }>Test `GET` /api/is-admin</button>
-            <button onClick={ getAllProducts }>Test `GET` /api/products</button>
-            <button onClick={ (_evt) => { getProduct(7) } }>
-              Test `GET` /api/products/7 for product with id equal to 7
-            </button>
-            <button onClick={ (_evt) => { deleteProduct(1) } }>
-              Test `DELETE` /api/products/1 for product with id equal to 1
-            </button>
-            <button onClick={ 
-              (_evt) => { 
-                updateProduct(2, {
-                  "id": 2,
-                  "name": "Foo bar",
-                  "description": "Foo bar foo bar foo bar",
-                  "price": 3.75,
-                  "new": false
-                });
-              }}>
-                Test `PUT` /api/products/2 for product with id equal to 2
-              </button>
-              <button onClick={ (_evt) => { 
-                buyItems([{
-                  "id": 2,
-                  "name": "Foo bar",
-                  "description": "Foo bar foo bar foo bar",
-                  "price": 3.75,
-                  "new": false
-                }])
-              } }>
-                Test `POST` /api/buy for given items
-              </button>
-          </div>
-          <div className="flexChild rowParent">
-            <Editor value={value} />
-          </div>
-        </div>
-      </div>
+    <div className="main-container">
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/admin" exact>
+            <AdminPage values={value} />
+          </Route>
+          <Route path="/products/new" exact component={ProductCreate} />
+          <Route path="/products/edit/:id" exact>
+            <ProductEdit />
+          </Route>
+          <Route path="/products">
+            <ProductList values={value} />
+          </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+        </Switch>
+        <Footer />
+      </Router>
+      {message && <Modal onClose={handleClose}>{message}</Modal>}
     </div>
   );
 
-  function getIsAdmin() {
-    ApiFactory.getInstance().get('/api/is-admin')
-      .then(({ data }) => {
-        setValue(beautify(data));
-      })
-      .catch((error) => {
-        console.log(error.response);
-      }).catch((error) => {
-        // TODO: Display nice error message.
-        console.log(error.response);
-      });
-  }
-
   function getAllProducts() {
-    ApiFactory.getInstance().get('/api/products')
+    ApiFactory.getInstance()
+      .get("/api/products")
       .then(({ data }) => {
-        setValue(beautify({ products: take(data, 3) }));
+        setValue(data);
       })
-      .catch((error) => {
-        console.log(error.response);
-      }).catch((error) => {
-        // TODO: Display nice error message.
-        console.log(error.response);
+      .catch(error => {
+        setMessage(error.response);
       });
-  }
-
-  function getProduct(id) {
-    ApiFactory.getInstance().get(`/api/products/${id}`)
-      .then(({ data }) => {
-        setValue(beautify({ products: data }));
-      })
-      .catch((error) => {
-        console.log(error.response);
-      }).catch((error) => {
-        // TODO: Display nice error message.
-        console.log(error.response);
-      });
-  }
-
-  function deleteProduct(id) {
-    ApiFactory.getInstance().delete(`/api/products/${id}`).then(
-      () => { getAllProducts() }
-    ).catch((error) => {
-      // TODO: Display nice error message.
-      console.log(error.response);
-    });
-  }
-
-  function updateProduct(id, data) {
-    ApiFactory.getInstance().put(`/api/products/${id}`, data).then(
-      () => { getAllProducts() }
-    ).catch((error) => {
-      // TODO: Display nice error message.
-      console.log(error.response);
-    });
-  }
-
-  function buyItems(items) {
-    ApiFactory.getInstance().post('/api/buy', { itemsToBuy: items }).then(function() {
-      alert('Bought Items. This is fake API that do nothing.');
-    }).catch((error) => {
-      // TODO: Display nice error message.
-      console.log(error.response);
-    });
-  }
-
-  function beautify(val) {
-    return JSON.stringify(val, null, 2);
   }
 }
