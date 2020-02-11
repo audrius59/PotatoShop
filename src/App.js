@@ -23,6 +23,17 @@ export default function App() {
     setMessage("");
   };
 
+  function getAllProducts() {
+    ApiFactory.getInstance()
+      .get("/api/products")
+      .then(({ data }) => {
+        setValue(data);
+      })
+      .catch(error => {
+        setMessage(error.response);
+      });
+  }
+
   return (
     <div className="main-container">
       <Router>
@@ -50,15 +61,4 @@ export default function App() {
       {message && <Modal onClose={handleClose}>{message}</Modal>}
     </div>
   );
-
-  function getAllProducts() {
-    ApiFactory.getInstance()
-      .get("/api/products")
-      .then(({ data }) => {
-        setValue(data);
-      })
-      .catch(error => {
-        setMessage(error.response);
-      });
-  }
 }

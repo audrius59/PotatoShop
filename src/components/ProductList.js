@@ -1,7 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import ProductCard from "./ProductCard";
-import "./ProductList.scss";
+import ProductCard from './ProductCard';
 
 const ProductList = ({ values }) => {
   const renderEmpty = () => {

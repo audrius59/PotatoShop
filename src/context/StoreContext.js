@@ -1,9 +1,16 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from 'react';
+import {
+  ADD_TO_CART,
+  INCREASE,
+  DECREASE,
+  CLEAR_CART,
+  PURCHASE
+} from '../actionTypes/storeActions';
 const StoreContext = createContext();
 
 function storeReducer(state, action) {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case ADD_TO_CART:
       const id = action.payload.id;
       if (state.cartItems.findIndex(item => item.id === id) !== -1) {
         const updatedCart = state.cartItems.reduce((acc, item) => {
@@ -17,27 +24,25 @@ function storeReducer(state, action) {
         return { ...state, updatedCart };
       }
       return { ...state, cartItems: [...state.cartItems, action.payload] };
-    case "DECREASE":
-      const itemToUpdate = state.cartItems.filter(
-        item => item.id === action.payload
+    case INCREASE:
+      const increasedCart = state.cartItems.map(item =>
+        item.id === action.payload
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
-      const updatedItem = itemToUpdate.map(item => {
-        if (item.quantity > 1) {
-          return { ...item, quantity: item.quantity - 1 };
-        } else return null;
-      });
-      const restOfIt = state.cartItems.filter(
-        item => item.id !== action.payload
+      return { ...state, cartItems: [...increasedCart] };
+    case DECREASE:
+      const updatedItem = state.cartItems.map(item =>
+        item.id === action.payload
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
       );
-      if (updatedItem[0]) {
-        console.log(updatedItem);
-        return { ...state, cartItems: [...updatedItem, ...restOfIt] };
-      } else if (restOfIt[0]) {
-        return { ...state, cartItems: [...restOfIt] };
-      } else return { ...state, cartItems: [] };
-    case "CLEAR_CART":
+      const filterBlank = updatedItem.filter(item => item.quantity > 0);
+      return { ...state, cartItems: [...filterBlank] };
+
+    case CLEAR_CART:
       return { ...state, cartItems: [] };
-    case "PURCHASE":
+    case PURCHASE:
       return { ...state, cartItems: [] };
     default:
       return state;

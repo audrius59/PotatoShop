@@ -6,17 +6,24 @@
   align-items: stretch;
   &__card {
     width: 300px;
-    border: 1px solid #8b8b8b;
+    border: 1px solid $fc-gray;
     border-radius: 6px;
     height: 599px;
     margin: 0 10px;
-    background-color: #fff;
+    background-color: $fc-light;
+    @media (max-width: 640px) {
+      width: 90%;
+      height: 300px;
+    }
     &-title {
       font-weight: 700;
       font-size: 1.2rem;
       text-align: center;
       margin-top: 50%;
       margin-bottom: 10px;
+      @media (max-width: 640px) {
+        margin-top: 3em;
+      }
     }
     &-text {
       font-weight: 300;
@@ -30,15 +37,15 @@
       width: 80%;
       margin: 0 auto;
       padding: 10px;
-      background-color: #fffff9;
-      border: 1px solid #157f1f;
+      background-color: $fc-light;
+      border: 1px solid $fc-success;
       color: inherit;
       border-radius: 7px;
       margin-bottom: 20px;
       transition: background-color 800ms;
       &:hover {
-        background-color: #157f1f;
-        color: #fffff9;
+        background-color: $fc-success;
+        color: $fc-light;
       }
     }
   }

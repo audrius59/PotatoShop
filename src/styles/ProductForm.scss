@@ -1,11 +1,17 @@
 .ProductForm {
-  background-color: #fff;
+  background-color: $fc-light;
   border-radius: 7px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   width: 40%;
   margin: 40px auto;
+  @media (max-width: 980px) {
+    width: 70%;
+  }
+  @media (max-width: 640px) {
+    width: 90%;
+  }
   &__group {
     display: flex;
     flex-direction: column;
@@ -18,7 +24,7 @@
     width: 90%;
     height: 24px;
     margin: 0 auto;
-    border: 1px solid #8b8b8b;
+    border: 1px solid $fc-gray;
     border-radius: 3px;
     &--shared {
       flex-grow: 1;
@@ -29,24 +35,24 @@
   }
   &__button {
     width: 250px;
-    border: 1px solid #fffff9;
+    border: 1px solid $fc-light;
     margin: 10px auto;
     padding: 8px;
     border-radius: 5px;
     cursor: pointer;
     &:hover {
-      box-shadow: 0 0 5px #071013;
+      box-shadow: 0 0 5px $fc-dark;
     }
     &--shared {
-      border: 0.25px solid #071013;
+      border: 0.25px solid $fc-dark;
       cursor: pointer;
       &:hover {
-        background-color: lighten(#8b8b8b, 60);
+        background-color: lighten($fc-gray, 60);
       }
     }
   }
   &__shared {
-    background-color: #8b8b8b;
+    background-color: $fc-gray;
     width: 90%;
     margin: 0 auto;
     display: flex;

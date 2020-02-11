@@ -1,6 +1,6 @@
-import React from "react";
-
-import "./Modal.scss";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 
 const ErrorModal = React.memo(props => {
   return (
@@ -14,7 +14,7 @@ const ErrorModal = React.memo(props => {
             type="button"
             onClick={props.onClose}
           >
-            X
+            <FontAwesomeIcon icon={faWindowClose} size="lg" />
           </button>
         </div>
       </div>

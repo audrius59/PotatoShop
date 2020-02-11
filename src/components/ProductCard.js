@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
-import { withRouter } from "react-router-dom";
-import "./ProductCard.scss";
-import { Carousel } from "./Carousel";
-import { StoreContext } from "../context/StoreContext";
-import Modal from "./Modal";
+import React, { useState, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
+
+import { Carousel } from './Carousel';
+import { ADD_TO_CART } from '../actionTypes/storeActions';
+import { StoreContext } from '../context/StoreContext';
+import Modal from './Modal';
 
 const ProductCard = ({
   id,
@@ -15,16 +16,24 @@ const ProductCard = ({
   history,
   onDelete
 }) => {
-  const [state, dispatch] = useContext(StoreContext);
-  const [message, setMessage] = useState("");
-  const item = { id, name, price, description, quantity: 1 };
+  const [, dispatch] = useContext(StoreContext);
+  const [message, setMessage] = useState('');
+  const item = {
+    id,
+    name,
+    price,
+    description,
+    image: images[0].url,
+    quantity: 1
+  };
+
   const handleAdd = () => {
-    dispatch({ type: "ADD_TO_CART", payload: item });
+    dispatch({ type: ADD_TO_CART, payload: item });
     setMessage(`${name} has been added to your cart!`);
   };
 
   const handleClose = () => {
-    setMessage("");
+    setMessage('');
   };
 
   const renderButtons = () => {

@@ -1,19 +1,17 @@
-import React, { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
-import ApiFactory from "../mock";
-import ProductCard from "./ProductCard";
-import Modal from "./Modal";
-import "./AdminPage.scss";
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import ApiFactory from '../mock';
+import ProductCard from './ProductCard';
+import Modal from './Modal';
 
 function AdminPage({ values, history }) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   function deleteProduct(id) {
     ApiFactory.getInstance()
       .delete(`/api/products/${id}`)
       .then(() => {
-        history.push("/admin");
-        return;
+        history.push('/admin');
       })
       .catch(error => {
         setMessage(error.response);
@@ -21,7 +19,7 @@ function AdminPage({ values, history }) {
   }
 
   const handleClose = () => {
-    setMessage("");
+    setMessage('');
   };
 
   const onSubmit = id => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { withRouter } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ProductForm from "./ProductForm";
@@ -16,27 +16,26 @@ const ProductEdit = ({ history }) => {
     history.push("/products");
   }
 
-  function getProduct(id) {
+  const getProduct = useCallback(id => {
     ApiFactory.getInstance()
       .get(`/api/products/${id}`)
       .then(({ data }) => {
         if (!data) {
-          history.push("/products");
-          throw new Error("Product not found");
+          console.log("Product not found");
+          return;
         }
         setProduct(data);
       })
       .catch(error => {
         setMessage(error.response);
       });
-  }
+  }, []);
 
   function updateProduct(id, data) {
     ApiFactory.getInstance()
       .put(`/api/products/${id}`, data)
       .then(() => {
         history.push("/products");
-        return;
       })
       .catch(error => {
         setMessage(error.response);
@@ -51,9 +50,10 @@ const ProductEdit = ({ history }) => {
   const handleClose = () => {
     setMessage("");
   };
+
   useEffect(() => {
     getProduct(id);
-  }, [id]);
+  }, [getProduct, id]);
 
   return (
     <div>

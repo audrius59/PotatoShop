@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import "./ProductForm.scss";
-import { Carousel } from "./Carousel";
-import uuid from "uuid/v4";
-import empty_image from "../assets/empty_image.png";
+import { Carousel } from './Carousel';
+import uuid from 'uuid/v4';
+import empty_image from '../assets/empty_image.png';
 
 const ProductForm = ({ product, onSubmit }) => {
-  const [productName, setProductName] = useState(" ");
-  const [productDescription, setProductDescription] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productImageUrl, setProductImageUrl] = useState("");
+  const [productName, setProductName] = useState(' ');
+  const [productDescription, setProductDescription] = useState('');
+  const [productPrice, setProductPrice] = useState('');
+  const [productImageUrl, setProductImageUrl] = useState('');
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -49,7 +48,7 @@ const ProductForm = ({ product, onSubmit }) => {
           <label className="ProductForm__label">Product name</label>
           <input
             className="ProductForm__input"
-            value={productName || ""}
+            value={productName || ''}
             onChange={e => setProductName(e.target.value)}
             type="text"
             name="name"
@@ -61,7 +60,7 @@ const ProductForm = ({ product, onSubmit }) => {
             className="ProductForm__input textarea"
             type="text"
             name="description"
-            value={productDescription || ""}
+            value={productDescription || ''}
             onChange={e => setProductDescription(e.target.value)}
           ></textarea>
         </div>
@@ -72,7 +71,7 @@ const ProductForm = ({ product, onSubmit }) => {
             type="number"
             step="0.01"
             name="price"
-            value={productPrice || ""}
+            value={productPrice || ''}
             onChange={e => setProductPrice(e.target.value)}
           />
         </div>
@@ -91,6 +90,7 @@ const ProductForm = ({ product, onSubmit }) => {
               type="button"
               value="Add image"
               onClick={handleAddImage}
+              disabled={!productImageUrl}
             />
           </div>
         </div>

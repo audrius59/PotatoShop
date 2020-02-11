@@ -1,14 +1,17 @@
 .ProductCard {
-  background-color: #fff;
-  border: 1px solid #8b8b8b;
+  background-color: $fc-light;
+  border: 1px solid $fc-gray;
   border-radius: 6px;
   width: 300px;
   height: 599px;
   margin: 0 10px 10px;
+  @media (max-width: 640px) {
+    width: 90%;
+  }
   &__image-container {
     max-width: 100%;
     height: 30%;
-    padding: 2rem;
+    padding: 2em;
   }
   &__image {
     display: block;
@@ -23,25 +26,29 @@
       width: 50%;
       padding: 10px;
       margin-top: auto;
+      margin-bottom: 1em;
       cursor: pointer;
+      @media (max-width: 640px) {
+        margin-bottom: 2em;
+      }
     }
     & .green {
-      border: 1px solid #157f1f;
+      border: 1px solid $fc-success;
       border-right: none;
       border-radius: 7px 0 0 7px;
       transition: background-color 500ms;
       &:hover {
-        background-color: #157f1f;
-        color: #fff;
+        background-color: $fc-success;
+        color: $fc-light;
       }
     }
     & .red {
-      border: 1px solid#ff0022;
+      border: 1px solid$fc-alert;
       border-radius: 0 7px 7px 0;
       transition: background-color 500ms;
       &:hover {
-        background-color: #ff0022;
-        color: #fff;
+        background-color: $fc-alert;
+        color: $fc-light;
       }
     }
   }
@@ -52,7 +59,7 @@
   flex-direction: column;
   height: 55%;
   padding: 1rem;
-  border-top: 1px solid #8b8b8b;
+  border-top: 1px solid $fc-gray;
   &-title,
   &-price {
     margin: 0;
@@ -67,16 +74,19 @@
   &-btn {
     width: 250px;
     padding: 12px;
-    border: 1px solid #157f1f;
-    color: #157f1f;
+    border: 1px solid $fc-success;
+    color: $fc-success;
     font-weight: 500;
     border-radius: 5px;
-    margin: auto auto 0;
+    margin: auto auto 1em;
     cursor: pointer;
     transition: background-color 800ms;
+    @media (max-width: 640px) {
+      margin-bottom: 2em;
+    }
     &:hover {
-      background-color: #157f1f;
-      color: #fff;
+      background-color: $fc-success;
+      color: $fc-light;
     }
   }
 }

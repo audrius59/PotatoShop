@@ -1,0 +1,105 @@
+.LandingPage {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+  &-content {
+    width: 100%;
+    max-width: 1680px;
+    height: 280px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: darken($bc-yellow, 10%);
+    @media (max-width: 1280px) {
+      height: 400px;
+      margin-bottom: 1em;
+    }
+  }
+  &__title {
+    font-size: 2.5rem;
+    @media (max-width: 640px) {
+      width: 90%;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 2rem;
+    }
+    & .emphasized {
+      color: darken($bc-yellow, 50%);
+      font-style: italic;
+      font-size: 3.5rem;
+      @media (max-width: 640px) {
+        font-size: 3rem;
+      }
+    }
+  }
+  &__text {
+    font-size: 1.2rem;
+  }
+  &__link {
+    text-decoration: none;
+    width: 150px;
+    padding: 10px 20px;
+    border: 1px solid $fc-light;
+    border-radius: 6px;
+    text-align: center;
+    background-color: $fc-dark;
+    color: $fc-light;
+    text-transform: uppercase;
+    transition: background-color ease-in-out 200ms;
+    &:hover {
+      background-color: $fc-light;
+      color: $fc-dark;
+    }
+    @media (max-width: 1280px) {
+      width: 200px;
+    }
+  }
+  &-gallery {
+    display: flex;
+    justify-content: space-evenly;
+    width: 98%;
+    max-width: 1680px;
+    height: 250px;
+    padding: 0.5em;
+    margin: 0 auto;
+    @media (max-width: 1280px) {
+      height: 100%;
+      flex-wrap: wrap-reverse;
+    }
+    @media (max-width: 640px) {
+      padding: 0;
+    }
+    & .landscape {
+      display: block;
+      width: 29%;
+      height: 100%;
+      @media (max-width: 1280px) {
+        width: 55%;
+        height: 400px;
+      }
+      @media (max-width: 640px) {
+        display: none;
+      }
+    }
+    & .portrait {
+      display: block;
+      width: 19%;
+      height: 100%;
+      @media (max-width: 1280px) {
+        height: 400px;
+        width: 40%;
+      }
+      @media (max-width: 640px) {
+        width: 48%;
+        height: 250px;
+        margin-bottom: 1em;
+      }
+    }
+  }
+}
